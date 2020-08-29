@@ -1,0 +1,114 @@
+CMake版本低，需要更高版本.
+
+合工大机器人实验室 2019-05-16 16:49:35  11334  收藏 14
+分类专栏： Linux
+版权
+使用cmake命令安装Opencv软件时，报如下错误：
+
+CMake Error at CMakeLists.txt:4 (CMAKE_MINIMUM_REQUIRED):
+CMake 3.5.4 or higher is required. You are running version 2.8.12.2
+-- Configuring incomplete, errors occurred!
+
+提示CMake版本低，需要更高版本。
+
+1 查看cmake版本
+
+cmake --version
+卸载命令（这个不要随便用）
+
+sudo apt-get autoremove cmake    (慎用)
+这命令一定要慎用,它将直接删除与cmake有关的一切,例如这个命令直接删除了ROS系统(机器人操作系统)相关的cmake,导致ROS不能使用.
+
+之前看到所有的博客升级博客都要卸载，但是卸载会对虚拟机现存的各种库依赖发送变化，导致机器不能正常运行。
+
+拍了快照，然后尝试下，不卸载安装，也顺利完成。
+
+3 下载新版本
+
+　　
+
+下载cmake
+
+wget https://cmake.org/files/v3.9/cmake-3.9.2.tar.gz
+
+解压文件
+
+tar zxvf  cmake-3.9.2.tar.gz
+
+cd cmake-3.9.2
+
+./configure
+
+make
+
+sudo make install
+
+sudo cmake --version
+
+
+　　
+
+安装成功。
+
+直接去你需要的安装文件下去cmake 。
+
+ 
+
+ 
+
+下面的操作暂时不用关心，如果使用的时候遇到问题在操作下面的。
+
+*******************分割线**************************************************************************************
+
+
+　　3、增加环境变量，使其成为全局变量：
+
+
+　　　　第一种方法:
+
+                vim /etc/profile
+
+
+　　　　在文件末尾处增加以下代码
+
+
+　　　　export PATH=$PATH:/lnmp/src/cmake-3.6.0-Linux-x86_64/bin
+
+
+　　　　注意：写自己刚安装cmake的bin的路径　　　　
+
+                使修改的文件生效source /etc/profile
+
+               此种方法仅在source命令之后才能使用,也就是说是一次性的,新打开终端,需要再source一遍才能使用,第二种方法可以永久解决.
+
+             第二种方法:
+
+              vi ~/.bashrc
+
+               在文件末尾处增加以下代码
+
+
+　　　   export PATH=$PATH:/lnmp/src/cmake-3.6.0-Linux-x86_64/bin
+
+
+　　　　注意：写自己刚安装cmake的bin的路径　
+
+               使修改的文件生效source /etc/profile
+
+              这样每次重新打开终端就可以生效了.
+
+      
+　　4、查看环境变量：
+
+
+　　　　echo $PATH
+
+
+　　5、检查cmake版本：
+
+
+　　　　cmake --version
+
+              注意:与命令 sudo cmake --version 相区分.
+              
+              https://blog.csdn.net/qq_34935373/article/details/90266958
